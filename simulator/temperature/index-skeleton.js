@@ -44,15 +44,14 @@ if (args[0] == '?') {
 	console.log('bsp =npm start 10 0001 1000 500 3000')
 }
 
-var timeinterval = 5e3
-var roomid = 'room_1'
-var sensorid = 'sensor_1'
-var minco2 = 200
-var maxco2 = 1000
-
+var timeinterval = +args[0] * 1e3 || 5e3
+var roomid = args[1] || 'room_1'
+var sensorid = args[2] || 'sensor_2'
+var minco2 = +args[3] || -50
+var maxco2 = +args[4] || 60
 var co2value;
-
 var mqttmsg = {};
+
 mqttmsg['roomid'] = roomid
 mqttmsg['sensorid'] = sensorid
 
@@ -62,9 +61,9 @@ setInterval(function (
 	co2value = between(minco2, maxco2);
 	mqttmsg['co2value'] = co2value;
 	console.log(mqttmsg);
-	client.publish('microservice/co2', JSON.stringify(mqttmsg));
+	client.publish('microservice/temperature', JSON.stringify(mqttmsg));
 }, timeinterval) //logs hi every second
 
-app.listen(4003, () => {
-	console.log('Listening on port 4003')
+app.listen(4000, () => {
+	console.log('Listening on port 4000')
 });

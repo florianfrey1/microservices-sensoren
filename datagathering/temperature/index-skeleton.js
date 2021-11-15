@@ -17,11 +17,11 @@ const axios = require('axios');
 
 // add mqtt support
 var mqtt = require('mqtt');
-var Topic = 'microservice/co2'; //subscribe to all topics from postapp
+var Topic = 'microservice/temperature'; //subscribe to all topics from postapp
 var Broker_URL = 'mqtt://localhost';
 
 var options = {
-    clientId: 'MyMQTT',
+    clientId: 'MyMQTT2',
     port: 1883,
     keepalive: 60
 };
@@ -74,6 +74,6 @@ function mqtt_messsageReceived(topic, message, packet) {
     co2data.push(jsonmsg);
 }
 
-app.listen(4001, async () => {
-    console.log('Listening on 4001');
+app.listen(4002, async () => {
+    console.log('Listening on 4002');
 });
